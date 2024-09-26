@@ -13,3 +13,18 @@ export const processArticles = async (chain: Runnable, articles: Article[]) => {
     const endTime = performance.now();
     return { results, time: endTime - startTime };
 };
+
+export const processArticle = async (chain: Runnable, article: Article) => {
+    const startTime = performance.now();
+    let answer: Article = article;
+    while (!answer.label){
+        answer = await chain.invoke({query: query(article.title, article.description)});
+    }
+    article.label = answer.label;
+    const outputArticle = {
+        ...article,
+        label: answer.label
+    }
+    const endTime = performance.now();
+    return { outputArticle, time: (endTime - startTime)/1000 };
+}
