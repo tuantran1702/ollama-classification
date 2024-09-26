@@ -1,6 +1,6 @@
-import type { Article } from "./article";
+import type { Article } from "../models/article";
 import {Runnable} from "@langchain/core/runnables"
-import { query } from "./prompt";
+import { query } from "../prompt/prompt";
 export const processArticles = async (chain: Runnable, articles: Article[]) => {
     const startTime = performance.now();
     const results = [];

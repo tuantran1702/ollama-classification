@@ -2,9 +2,9 @@ import { Ollama } from "@langchain/ollama";
 import { JsonOutputParser } from "@langchain/core/output_parsers";
 import * as fs from "fs";
 import { performance } from "perf_hooks";
-import { promptTemplate } from "./prompt";
-import { processArticle } from "./utils";
-import type { Article } from "./article";
+import { promptTemplate } from "./prompt/prompt";
+import { processArticle } from "./utils/utils";
+import type { Article } from "./models/article";
 
 const model = new Ollama({
   baseUrl: "http://localhost:11434",

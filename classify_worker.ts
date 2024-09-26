@@ -4,9 +4,9 @@ import * as fs from "fs";
 import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
 import * as os from 'os';
 import { performance } from 'perf_hooks';
-import { type Article } from "./article";
-import { promptTemplate } from "./prompt";
-import { processArticles } from "./utils";
+import { type Article } from "./models/article";
+import { promptTemplate } from "./prompt/prompt";
+import { processArticles } from "./utils/utils";
 type Articles = {
     articles: Article[];
 };
@@ -24,7 +24,7 @@ const numCPUs = os.cpus().length;
 if (isMainThread) {
     const startTime = performance.now();
     
-    const records: Article[] = JSON.parse(fs.readFileSync('records.json', 'utf-8'));
+    const records: Article[] = JSON.parse(fs.readFileSync('data/records.json', 'utf-8'));
     const chunkSize = Math.ceil(records.length / numCPUs);
     const chunks = Array(numCPUs).fill(null).map((_, index) =>
         records.slice(index * chunkSize, (index + 1) * chunkSize)
